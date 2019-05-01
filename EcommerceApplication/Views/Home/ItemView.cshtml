@@ -1,0 +1,31 @@
+﻿@using Manager
+@using EcommerceApplication.Controllers
+@using EcommerceApplication.Models
+@model ItemViewModel
+@{
+    ViewData["Title"] = "ItemView";
+}
+
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="well">
+            <div class="card h-100">
+                <img style="max-width: 500px;" class="card-img-top" src="/UploadedImages/@Model.Product.PictureName" alt="">
+                <div class="card-body">
+                    <h4 class="card-title">
+                        @Model.Product.Name
+                    </h4>
+                    <h5>@Model.Product.Price.ToString("C")</h5>
+                    <p class="card-text">@Model.Product.Description</p>
+                </div>
+            </div>
+            <input type="text" placeholder="Quantity" id="quantity" class="form-control" />
+            <button data-itemid="@Model.Product.Id" id="add-to-cart" class="btn btn-danger btn-block">ADD TO CART</button>
+        </div>
+    </div>
+</div>
+
+@section scripts{ 
+
+        <script src="~/js/index.js"></script>
+}

@@ -1,0 +1,124 @@
+﻿@using EcommerceApplication.Controllers
+@using EcommerceApplication.Models
+@using Manager
+@model IndexViewModel
+
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-lg-3">
+
+            <h1 class="my-4">My Shop</h1>
+            <div class="list-group">
+                @foreach (Categoties c in Model.Categoties)
+                {
+                    <form action="/admin/updatecategory" method="post">
+                        <input name="id" type="hidden" value="@c.Id" />
+                        <div class="input-group">
+                            <input name="Name" type="text" value="@c.Name" class="list-group-item form-control" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-info">Update</button>
+                            </span>
+                        </div>
+                    </form>
+
+                    <br />
+                }
+            </div>
+            <form method="post" action="/admin/addcategory">
+                <div class="input-group">
+                    <input name="Name" id="add-category" type="text" class="form-control" placeholder="Add Category..." />
+                    <span class="input-group-btn">
+                        <button class="btn btn-primary btn-block">ADD</button>
+                    </span>
+                </div>
+            </form>
+
+        </div>
+        <!-- /.col-lg-3 -->
+
+        <div class="col-lg-9">
+
+            <button id="add-product" class="btn btn-block btn-primary btn-lg">ADD PRODUCT</button>
+            <hr />
+
+            <div class="row">
+
+                @foreach (Products p in Model.Products)
+                {
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="well">
+                            <div class="card h-100">
+                                <img style="max-width: 225px;" class="card-img-top" src="@Url.Content(p.PictureName)" alt="Picture">
+                                <div class="card-body">
+                                    <h4 class="card-title">
+                                        <a href="/home/itemview?productid=@p.Id">@p.Name</a>
+                                    </h4>
+                                    <h5>@p.Price.ToString("C")</h5>
+                                    <p class="card-text">@(p.Description.Length >= 150 ? p.Description.Substring(0, 150) : p.Description) ...</p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+            <!-- /.row -->
+
+        </div>
+        <!-- /.col-lg-9 -->
+
+    </div>
+    <!-- /.row -->
+
+</div>
+<!-- /.container -->
+<!-- /modal add -->
+<div id="modal-add" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form method="post" action="/admin/addproduct" enctype="multipart/form-data">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Add Product</h4>
+                </div>
+                <div class="modal-body">
+                    <br />
+                    <label>Choose a picture</label>
+                    <input type="file" class="form-control" name="File" />
+                    <br />
+                    <label>Enter the product name</label>
+                    <input type="text" name="Name" class="form-control" placeholder="Item Name.." />
+                    <br />
+                    <label>Enter a Discription</label>
+                    <textarea class="form-control" rows="10" name="Description" placeholder="Description..."></textarea>
+                    <br />
+                    <label>Enter the price</label>
+                    <input type="text" name="Price" placeholder="Price.." class="form-control" />
+                    <br />
+                    <label>Select A Caterory</label>
+                    <select class="form-control" name="CategotyId">
+                        <option>Please select a category</option>
+                        @foreach (Categoties c in Model.Categoties)
+                        {
+                            <option value="@c.Id">@c.Name</option>
+                        }
+                    </select>
+                    <br />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button id="add" class="btn btn-primary">Add</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+@section scripts{
+
+    <script src="~/js/Admin.js"></script>
+}

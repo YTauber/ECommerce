@@ -1,0 +1,30 @@
+﻿@using Manager
+@using EcommerceApplication.Controllers
+@using EcommerceApplication.Models
+@model CartViewModel
+
+
+<div class="row">
+    <div class="col-md-4 col-md-offset-4">
+        <div class="well">
+            @{decimal x = 0;}
+            @foreach (CartItems c in Model.CartItems)
+            {
+                <div class="card h-100">
+                    <img style="max-width: 225px;" class="card-img-top" src="@c.PictureName" alt="Picture">
+                    <div class="card-body">
+                        <h4 class="card-title">@c.Name</h4>
+                        <h5>@c.Price.ToString("C")</h5>
+                        <h6>Quantity: @c.Quantity</h6>
+                        <h6>Total: @((c.Price * c.Quantity).ToString("C"))</h6>
+                        @{x += (c.Price * c.Quantity);}
+                    </div>
+                </div>
+                <hr />
+                <hr />
+            }
+        </div>
+        <h5>Total: @(x.ToString("C"))</h5>
+        <button class="btn btn-primary">CHECK OUT</button>
+    </div>
+</div>
