@@ -11,7 +11,7 @@
             @foreach (CartItems c in Model.CartItems)
             {
                 <div class="card h-100">
-                    <img style="max-width: 225px;" class="card-img-top" src="@c.PictureName" alt="Picture">
+                    <img style="max-width: 225px;" class="card-img-top" src="~/UploadedImages/@c.PictureName" alt="Picture">
                     <div class="card-body">
                         <h4 class="card-title">@c.Name</h4>
                         <h5>@c.Price.ToString("C")</h5>

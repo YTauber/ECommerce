@@ -47,7 +47,7 @@ namespace EcommerceApplication.Controllers
                 File.CopyTo(stream);
             }
 
-            product.PictureName = fullPath;
+            product.PictureName = fileName;
             DBManager mgr = new DBManager(_connectionString);
 
             mgr.InsertProduct(product);
